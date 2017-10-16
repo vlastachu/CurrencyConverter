@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="me.vlastachu.currencyconverter.main.MainActivity">
+    <item
+        android:id="@+id/action_reload"
+        android:icon="@drawable/reload"
+        android:orderInCategory="100"
+        android:title="@string/reload"
+        app:showAsAction="always" />
+</menu>
