@@ -68,17 +68,9 @@ public abstract class ViewModel {
         private String toValuteShortName;
         private String fromValuteValue;
         private String toValuteValue;
+        private Boolean isReversed;
 
-        public Loaded(ValuteSelectorState valuteSelectorState,
-                      Boolean updatingIconAnimate,
-                      List<ValuteItem> fromValutes,
-                      List<ValuteItem> toValutes,
-                      String fromValuteName,
-                      String toValuteName,
-                      String fromValuteShortName,
-                      String toValuteShortName,
-                      String fromValuteValue,
-                      String toValuteValue) {
+        public Loaded(ValuteSelectorState valuteSelectorState, Boolean updatingIconAnimate, List<ValuteItem> fromValutes, List<ValuteItem> toValutes, String fromValuteName, String toValuteName, String fromValuteShortName, String toValuteShortName, String fromValuteValue, String toValuteValue, Boolean isReversed) {
             this.valuteSelectorState = valuteSelectorState;
             this.updatingIconAnimate = updatingIconAnimate;
             this.fromValutes = fromValutes;
@@ -89,6 +81,7 @@ public abstract class ViewModel {
             this.toValuteShortName = toValuteShortName;
             this.fromValuteValue = fromValuteValue;
             this.toValuteValue = toValuteValue;
+            this.isReversed = isReversed;
         }
 
         public ValuteSelectorState getValuteSelectorState() {
@@ -129,6 +122,10 @@ public abstract class ViewModel {
 
         public String getToValuteValue() {
             return toValuteValue;
+        }
+
+        public Boolean getReversed() {
+            return isReversed;
         }
     }
 }

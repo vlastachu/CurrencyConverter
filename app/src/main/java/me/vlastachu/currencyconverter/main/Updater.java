@@ -37,7 +37,8 @@ public class Updater implements StateUpdater<State, Actions, MainActivityInterfa
                     fromValute.getCharCode(),
                     toValute.getCharCode(),
                     Float.toString(loaded.fromValue),
-                    Float.toString(loaded.toValue)
+                    Float.toString(loaded.toValue),
+                    loaded.isReversed
             );
         }
         return null;

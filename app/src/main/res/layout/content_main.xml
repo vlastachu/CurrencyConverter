@@ -61,13 +61,18 @@
             <TextView
                 android:id="@+id/from_currency_tv"
                 android:gravity="start"
-                android:layout_width="0px"
+                android:layout_width="wrap_content"
                 android:padding="16dp"
                 android:textSize="24sp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="$ USD"
                 android:textColor="#606060"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                />
             <ImageView
                 android:id="@+id/swap"
                 android:src="@drawable/swap"
@@ -79,14 +84,19 @@
                 android:padding="8dp"
                 android:tint="#606060"
                 />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                />
             <TextView
                 android:id="@+id/to_currency_tv"
                 android:gravity="end"
-                android:layout_width="0px"
+                android:layout_width="wrap_content"
                 android:padding="16dp"
                 android:textSize="24sp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="₽ RUB"
                 android:textColor="#606060"/>
         </LinearLayout>

@@ -1,5 +1,6 @@
 package me.vlastachu.currencyconverter.main;
 
+import android.animation.Animator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -204,7 +206,56 @@ public class MainActivity extends DataFlowActivity<ViewModel, State, Actions, Ma
     }
 
     @Override
+    public boolean animateChanges(ViewModel previous, final ViewModel current) {
+        if (previous instanceof ViewModel.Loaded && current instanceof ViewModel.Loaded) {
+            ViewModel.Loaded prevLoaded = (ViewModel.Loaded) previous;
+            ViewModel.Loaded curLoaded = (ViewModel.Loaded) current;
+            if (curLoaded.getReversed() != prevLoaded.getReversed()) {
+                final float fromX = fromCurrency.getX() - toCurrency.getX();
+                final float toX = -fromX;
+                swapButton.animate().rotationBy(360).alpha(0).scaleX(0).scaleY(0).setDuration(600).withEndAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        swapButton.animate().rotationBy(360).alpha(1).scaleX(1).scaleY(1).setDuration(400).start();
+                    }
+                }).start();
+                fromCurrency.animate().translationX(toX).setDuration(1000)
+                        .setInterpolator(new AnticipateOvershootInterpolator()).start();
+                toCurrency.animate().translationX(fromX).setDuration(1000)
+                        .setInterpolator(new AnticipateOvershootInterpolator())
+                        .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {}
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        fromCurrency.setTranslationX(0);
+                        toCurrency.setTranslationX(0);
+                        swapButton.setRotation(0);
+                        swapButton.setScaleX(1f);
+                        swapButton.setScaleY(1f);
+                        swapButton.setAlpha(1f);
+                        showViewModel(current);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+                        onAnimationEnd(animator);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {}
+                }).start();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public void showViewModel(ViewModel viewModel) {
+        fromCurrency.clearAnimation();
+        toCurrency.clearAnimation();
         emptyLayout.setVisibility(View.GONE);
         failedLayout.setVisibility(View.GONE);
         loadedLayout.setVisibility(View.GONE);
